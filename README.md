@@ -11,3 +11,10 @@
 ## Simulation slow subscriber
 ![alt text](image.png)
 terlihat bahwa pada waktu tertentu terdapat 50 *queued message*. Ini disebabkan oleh perubahan yang terjadi saat subscriber memerlukan waktu lebih lama untuk memproses pesan yang diterimanya. Hal ini mengakibatkan penumpukan pesan karena subscriber tidak dapat menangani pesan dengan kecepatan secepat yang dikirimkan oleh publisher. Pada saat yang sama, pengulangan perintah cargo run pada publisher juga dapat menyebabkan subscriber mengambil terlalu banyak pesan sekaligus (melalui pengaturan prefetch count), yang kemudian menyebabkan kelebihan beban pada subscriber dalam memproses pesan. Dengan demikian, ketidakseimbangan antara laju pengiriman pesan oleh publisher dan laju pemrosesan pesan oleh subscriber dapat menyebabkan penumpukan pesan dalam antrian.
+
+
+## Reflection and Running at least three subscribers
+![alt text](image-2.png)
+![alt text](image-1.png)
+
+Terlihat bahwa peningkatan jumlah subscriber dapat mengurangi jumlah pesan yang tertunda dalam antrian. Ini mengindikasikan bahwa dengan adanya beberapa subscriber, pesan dapat diproses secara simultan. Dengan kata lain, beberapa subscriber dapat bekerja bersama-sama untuk memproses pesan yang masuk, memungkinkan distribusi beban kerja yang lebih merata dan mempercepat waktu respon keseluruhan sistem terhadap pesan yang diterima. Dengan demikian, peningkatan jumlah subscriber dapat menjaga keseimbangan antara laju pengiriman pesan oleh publisher dan laju pemrosesan pesan oleh subscriber, yang berdampak positif pada pengurangan antrian dalam message queue.
