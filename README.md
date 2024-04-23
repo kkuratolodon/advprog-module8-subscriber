@@ -1,4 +1,4 @@
-# Understanding subscriber and message broker.
+## Understanding subscriber and message broker.
 
 - **what is amqp?**
   
@@ -7,3 +7,7 @@
 - **what it means? guest:guest@localhost:5672 , what is the first quest,and what is the second guest, and what is localhost:5672 is for?**
   
     Dalam konfigurasi guest:guest@localhost:5672, "guest" pertama merujuk pada username yang digunakan untuk mengakses server AMQP, sering kali sebagai pengaturan default dalam pemasangan RabbitMQ lokal. "Guest" kedua adalah password yang dikaitkan dengan username tersebut untuk proses autentikasi. "localhost" menunjukkan bahwa server AMQP dijalankan pada mesin lokal, dan "5672" adalah port yang digunakan oleh server AMQP untuk menerima koneksi. Jadi, string ini menginstruksikan aplikasi untuk terhubung ke server AMQP di mesin lokal menggunakan username "guest" dan password "guest" melalui port 5672.
+
+## Simulation slow subscriber
+![alt text](image.png)
+terlihat bahwa pada waktu tertentu terdapat 50 *queued message*. Ini disebabkan oleh perubahan yang terjadi saat subscriber memerlukan waktu lebih lama untuk memproses pesan yang diterimanya. Hal ini mengakibatkan penumpukan pesan karena subscriber tidak dapat menangani pesan dengan kecepatan secepat yang dikirimkan oleh publisher. Pada saat yang sama, pengulangan perintah cargo run pada publisher juga dapat menyebabkan subscriber mengambil terlalu banyak pesan sekaligus (melalui pengaturan prefetch count), yang kemudian menyebabkan kelebihan beban pada subscriber dalam memproses pesan. Dengan demikian, ketidakseimbangan antara laju pengiriman pesan oleh publisher dan laju pemrosesan pesan oleh subscriber dapat menyebabkan penumpukan pesan dalam antrian.
